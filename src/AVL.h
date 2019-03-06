@@ -9,6 +9,13 @@ struct Node
   int height;
 };
 
+struct FileNode
+{
+  int lChild;
+  int value;
+  int rChild;
+};
+
 class AVL
 {
 public:
@@ -18,6 +25,8 @@ public:
   int getBalance(Node *);
   Node *insert(Node *, int);
   Node *newNode(int);
+  Node *minimumNode(Node *);
+  Node *deleteNode(Node *, int);
 };
 
 #endif //AVL_H
