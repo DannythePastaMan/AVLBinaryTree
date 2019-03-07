@@ -9,13 +9,6 @@ struct Node
   int height;
 };
 
-struct FileNode
-{
-  int lChild;
-  int value;
-  int rChild;
-};
-
 class AVL
 {
 public:
