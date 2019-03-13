@@ -39,6 +39,8 @@ public:
   void createFile(char *);
   void saveNodestoFile(char *, int);
   void readFile(char *);
+  int getLeftSon(int, Node *);
+  int getRightSon(int, Node *);
 };
 
 #endif //AVL_H

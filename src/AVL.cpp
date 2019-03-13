@@ -309,3 +309,54 @@ void AVL::readFile(char name[40])
 
     this->file->close();
 }
+
+/*int AVL::getRightSon(int data, Node *root)
+{
+    if (root == nullptr)
+    {
+        return -1;
+        
+    }
+
+    if (data == root->key)
+    {
+        return (root->right == nullptr) ? -1 : root->right->key;
+    }
+
+    else if (data > root->key)
+    {
+        return getRightSon(data, root->right);
+    }
+
+    else
+    {
+        return getRightSon(data, root->left);
+    }
+
+    return -1;
+}
+
+int AVL::getLeftSon(int data, Node *root)
+{
+    if (root == nullptr)
+    {
+        return -1;
+    }
+
+    if (data == root->key)
+    {
+        return (root->left == nullptr) ? -1 : root->left->key;
+    }
+
+    else if (data < root->key)
+    {
+        return getLeftSon(data, root->left);
+    }
+
+    else
+    {
+        return getLeftSon(data, root->right);
+    }
+
+    return -1;
+}*/
