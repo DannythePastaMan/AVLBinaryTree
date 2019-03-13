@@ -5,6 +5,10 @@
 
 using namespace std;
 
+AVL::AVL()
+{
+}
+
 int AVL::height(struct Node *N)
 {
     if (N == nullptr)
@@ -65,7 +69,7 @@ int AVL::getBalance(struct Node *N)
     return height(N->left) - height(N->right);
 }
 
-Node *AVL::insert(struct Node *node, int key)
+Node *AVL::insert(Node *node, int key)
 {
     if (node == NULL)
     {
@@ -98,7 +102,9 @@ Node *AVL::insert(struct Node *node, int key)
 
     // Right Right Case
     if (balance < -1 && key > node->right->key)
+    {
         return lRotation(node);
+    }
 
     // Left Right Case
     if (balance > 1 && key > node->left->key)
@@ -138,7 +144,7 @@ Node *AVL::deleteNode(Node *root, int key)
     {
         if ((root->left == nullptr) || (root->right == nullptr))
         {
-            struct Node *temp = root->left ? root->left : root->right;
+            Node *temp = root->left ? root->left : root->right;
 
             // No child case
             if (temp == nullptr)
@@ -154,6 +160,7 @@ Node *AVL::deleteNode(Node *root, int key)
 
             free(temp);
         }
+
         else
         {
             struct Node *temp = minimumNode(root->right);
@@ -177,7 +184,9 @@ Node *AVL::deleteNode(Node *root, int key)
 
     // Left Left Case
     if (balance > 1 && getBalance(root->left) >= 0)
+    {
         return rRotation(root);
+    }
 
     // Left Right Case
     if (balance > 1 && getBalance(root->left) < 0)
@@ -212,4 +221,91 @@ Node *AVL::minimumNode(struct Node *node)
     }
 
     return current;
+}
+
+void AVL::preOrder(Node *root)
+{
+    if (root != nullptr)
+    {
+        cout << root->key << endl;
+        preOrder(root->left);
+        preOrder(root->right);
+    }
+}
+
+void AVL::inOrder(Node *root)
+{
+    if (root != nullptr)
+    {
+        inOrder(root->left);
+        cout << root->key << endl;
+        inOrder(root->right);
+    }
+}
+
+void AVL::postOrder(Node *root)
+{
+    if (root != nullptr)
+    {
+        postOrder(root->left);
+        postOrder(root->right);
+        cout << root->key << endl;
+    }
+}
+
+void AVL::createFile(char name[40])
+{
+    this->file = new fstream(name, ios::in | ios::out | ios::app | ios::binary);
+
+    file->open(name);
+
+    this->file->seekp(0, ios::beg);
+
+    if (!file)
+    {
+        cout << "El archivo no existe" << endl;
+        return;
+    }
+
+    this->file->close();
+}
+
+void AVL::saveNodestoFile(char name[40], int key)
+{
+    this->file = new fstream(name, ios::out | ios::binary | ios::app);
+
+    if (!file)
+    {
+        cout << "El archivo no existe" << endl;
+        return;
+    }
+
+    this->file->seekp(0, ios::beg);
+
+    this->object = new FileNode();
+
+    object->value = key;
+    object->lChild = -1;
+    object->rChild = -1;
+
+    this->file->write(reinterpret_cast<char *>(object), sizeof(FileNode));
+
+    this->file->close();
+}
+
+void AVL::readFile(char name[40])
+{
+    this->file = new fstream(name, ios::in | ios::binary);
+
+    this->file->seekg(0, ios::beg);
+
+    this->object = new FileNode();
+
+    while (!this->file->eof())
+    {
+        cout << "Valores en el archivo: " << object->value << endl;
+        this->file->read(reinterpret_cast<char *>(object), sizeof(FileNode));
+    }
+
+    this->file->close();
 }

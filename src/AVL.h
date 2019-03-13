@@ -1,6 +1,9 @@
 #ifndef AVL_H
 #define AVL_H
 
+#include <iostream>
+#include <fstream>
+
 struct Node
 {
   int key;
@@ -9,9 +12,19 @@ struct Node
   int height;
 };
 
+struct FileNode
+{
+  int lChild;
+  int value;
+  int rChild;
+};
+
 class AVL
 {
 public:
+  AVL();
+  std::fstream *file;
+  FileNode *object;
   int height(Node *);
   Node *rRotation(Node *);
   Node *lRotation(Node *);
@@ -20,6 +33,12 @@ public:
   Node *newNode(int);
   Node *minimumNode(Node *);
   Node *deleteNode(Node *, int);
+  void preOrder(Node *);
+  void inOrder(Node *);
+  void postOrder(Node *);
+  void createFile(char *);
+  void saveNodestoFile(char *, int);
+  void readFile(char *);
 };
 
 #endif //AVL_H
